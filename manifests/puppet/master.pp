@@ -7,12 +7,14 @@
 # puppet master will be installed to be puppetlabs
 # Default: true
 
-class stacktira::master (
-  puppetlabs_repo = true,
-  puppet_master_address = $::fqdn
-)
+class openstacklib::puppet::master (
+  $puppetlabs_repo = true,
+  $puppet_master_address = $::fqdn,
+  $domain = $::domain,
+  $puppet_subnet = "${::network_eth1}/24"
+) {
 
-  $puppet_master_bind_address = $puppet_master_address'
+  $puppet_master_bind_address = $puppet_master_address
 # installs puppet
 # I think I want to assume a puppet 3.x install
 
@@ -54,6 +56,28 @@ class stacktira::master (
     listen_address => $puppet_master_bind_address,
     ssl_listen_address => $puppet_master_bind_address,
     database_password => 'datapass',
+    listen_port => 8080,
+    ssl_listen_port => 8081
+  }
+
+  # I have no idea what this is but I get 403
+  # on pluginsync without it
+  #https://groups.google.com/forum/#!msg/puppet-users/eQpr0-zd3dM/cx8NwigZpBAJ
+  if ($::osfamily == 'RedHat') {
+    file { '/etc/puppet/auth.conf':
+      owner => root,
+      group => root,
+      content => template('openstacklib/auth.conf.erb'),
+      require => File[$::puppet::params::confdir],
+      notify => Service[$::puppet::params::puppet_master_service],
+    }
+    file { '/etc/puppet/fileserver.conf':
+      owner => root,
+      group => root,
+      content => template('openstacklib/fileserver.conf.erb'),
+      require => File[$::puppet::params::confdir],
+      notify => Service[$::puppet::params::puppet_master_service],
+    }
   }
 
 # Configure the puppet master to use puppetdb.

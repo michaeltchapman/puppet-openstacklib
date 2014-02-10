@@ -1,0 +1,13 @@
+# FQDN must be first
+<%= @mgmt_ip %>  <%= @hostname %>.<%= @domain %> <%= @hostname %>
+127.0.0.1       localhost       localhost.localdomain localhost4 localhost4.localdomain4
+#::1             localhost       localhost.localdomain localhost6 localhost6.localdomain6
+<% if @hostname != @build_server_name -%>
+<%= @build_server_ip %>   <%= @build_server_name %>.<%= @domain %>   <%= @build_server_name %>
+<% end -%>
+# Control nodes private interfaces for rabbit
+<% @cluster_hash.each do |node, ip| -%>
+<% if @hostname != node -%>
+<%= ip %> <%= node %>
+<% end -%>
+<% end -%>
