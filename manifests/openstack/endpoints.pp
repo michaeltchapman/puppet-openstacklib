@@ -16,19 +16,12 @@ class openstacklib::openstack::endpoints (
   ],
 ) {
 
-# keystone needs auth set up, but does not follow the
-# convention of the other services
+  # keystone needs auth set up, but does not follow the
+  # convention of the other services
   $real_enabled_services = delete($enabled_services, 'keystone')
 
-  keystone_endpoints { $real_enabled_services: }
+  openstack::openstacklib::keystone_endpoint { $real_enabled_services: }
 
   include ::keystone::endpoint
   include ::keystone::roles::admin
-
-}
-
-define keystone_endpoints() {
-
-  include "::${name}::keystone::auth"
-
 }

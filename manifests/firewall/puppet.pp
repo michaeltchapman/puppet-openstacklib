@@ -19,8 +19,8 @@ class openstacklib::firewall::puppet(
   $puppet_master = 8140,
 )
 {
-    firewall { "400 puppet-master accept tcp":
-      proto => 'tcp',
+    firewall { '400 puppet-master accept tcp':
+      proto  => 'tcp',
       port   => [$puppet_master],
       action => accept,
       source => $source

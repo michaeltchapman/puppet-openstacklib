@@ -37,9 +37,9 @@ class openstacklib::hosts (
 ) {
 
   file { '/etc/hosts':
-    ensure => present,
-    owner  => root,
-    group  => root,
+    ensure  => present,
+    owner   => root,
+    group   => root,
     content => template('openstacklib/hosts.erb'),
   } -> Package<||>
 }

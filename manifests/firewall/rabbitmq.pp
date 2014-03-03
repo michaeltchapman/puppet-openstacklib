@@ -36,22 +36,22 @@ class openstacklib::firewall::rabbitmq(
   $erlang_upper = 9105,
 )
 {
-    firewall { "500 rabbitmq_erlang accept tcp":
-      proto => 'tcp',
-      dport => ["$erlang_lower-$erlang_upper"],
+    firewall { '500 rabbitmq_erlang accept tcp':
+      proto  => 'tcp',
+      dport  => ["${erlang_lower}-${erlang_upper}"],
       action => accept,
       source => $source
     }
 
-    firewall { "501 rabbitmq_amqp accept tcp":
-      proto => 'tcp',
-      port  => $rabbit_port,
+    firewall { '501 rabbitmq_amqp accept tcp':
+      proto  => 'tcp',
+      port   => $rabbit_port,
       action => accept,
       source => $source
     }
 
-    firewall { "500 rabbitmq_cluster accept tcp":
-      proto => 'tcp',
+    firewall { '500 rabbitmq_cluster accept tcp':
+      proto  => 'tcp',
       port   => $epmd_port,
       action => accept,
       source => $source

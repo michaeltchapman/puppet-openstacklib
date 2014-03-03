@@ -58,24 +58,24 @@ class openstacklib::loadbalance::haproxy::ceilometer(
 )
 {
   openstacklib::loadbalance::haproxy_service { 'ceilometer':
-    vip              => $vip,
-    balancer_ports   => $ports,
-    listen_options   => $listen_options,
-    listen_mode      => $listen_mode,
-    balancer_options => $balancer_options,
-    balancer_cookie  => $balancer_cookie,
+    vip               => $vip,
+    balancer_ports    => $ports,
+    listen_options    => $listen_options,
+    listen_mode       => $listen_mode,
+    balancer_options  => $balancer_options,
+    balancer_cookie   => $balancer_cookie,
     cluster_addresses => $cluster_addresses,
     cluster_names     => $cluster_names
   }
 
-  if $internal_vip { 
+  if $internal_vip {
     openstacklib::loadbalance::haproxy_service { 'ceilometer-internal':
-      vip              => $vip,
-      balancer_ports   => $ports,
-      listen_options   => $listen_options,
-      listen_mode      => $listen_mode,
-      balancer_options => $balancer_options,
-      balancer_cookie  => $balancer_cookie,
+      vip               => $vip,
+      balancer_ports    => $ports,
+      listen_options    => $listen_options,
+      listen_mode       => $listen_mode,
+      balancer_options  => $balancer_options,
+      balancer_cookie   => $balancer_cookie,
       cluster_addresses => $cluster_addresses,
       cluster_names     => $cluster_names
     }

@@ -35,52 +35,52 @@ class openstacklib::firewall::nova(
   $novnc_port      = 6080,
 )
 {
-  firewall { "510 nova_api accept tcp":
-    proto => 'tcp',
+  firewall { '510 nova_api accept tcp':
+    proto  => 'tcp',
     port   => [$api_port],
     action => accept,
     source => $source
   }
-  firewall { "511 nova_ec2 accept tcp":
-    proto => 'tcp',
+  firewall { '511 nova_ec2 accept tcp':
+    proto  => 'tcp',
     port   => [$ec2_port],
     action => accept,
     source => $source
   }
-  firewall { "512 nova_metadata accept tcp":
-    proto => 'tcp',
+  firewall { '512 nova_metadata accept tcp':
+    proto  => 'tcp',
     port   => [$metadata_port],
     action => accept,
     source => $source
   }
-  firewall { "513 nova_novnc accept tcp":
-    proto => 'tcp',
+  firewall { '513 nova_novnc accept tcp':
+    proto  => 'tcp',
     port   => [$ec2_port],
     action => accept,
     source => $source
   }
 
   if $internal_source {
-    firewall { "510 nova_api-internal accept tcp":
-      proto => 'tcp',
+    firewall { '510 nova_api-internal accept tcp':
+      proto  => 'tcp',
       port   => [$api_port],
       action => accept,
       source => $internal_source
     }
-    firewall { "511 nova_ec2-internal accept tcp":
-      proto => 'tcp',
+    firewall { '511 nova_ec2-internal accept tcp':
+      proto  => 'tcp',
       port   => [$ec2_port],
       action => accept,
       source => $internal_source
     }
-    firewall { "512 nova_metadata-internal accept tcp":
-      proto => 'tcp',
+    firewall { '512 nova_metadata-internal accept tcp':
+      proto  => 'tcp',
       port   => [$metadata_port],
       action => accept,
       source => $internal_source
     }
-    firewall { "513 nova_novnc-internal accept tcp":
-      proto => 'tcp',
+    firewall { '513 nova_novnc-internal accept tcp':
+      proto  => 'tcp',
       port   => [$ec2_port],
       action => accept,
       source => $internal_source

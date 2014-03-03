@@ -20,16 +20,16 @@ class openstacklib::firewall::neutron(
   $neutron_api     = 9696,
 )
 {
-  firewall { "550 neutron-api accept tcp":
-    proto => 'tcp',
+  firewall { '550 neutron-api accept tcp':
+    proto  => 'tcp',
     port   => [$neutron_api],
     action => accept,
     source => $source
   }
 
   if $internal_source {
-    firewall { "550 neutron-api-internal accept tcp":
-      proto => 'tcp',
+    firewall { '550 neutron-api-internal accept tcp':
+      proto  => 'tcp',
       port   => [$neutron_api],
       action => accept,
       source => $internal_source

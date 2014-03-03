@@ -26,16 +26,7 @@ class openstacklib::openstack::databases(
 # as one of their enabled_services
   $real_enabled_services = delete($enabled_services, 'swift')
 
-  openstack_database { $real_enabled_services:
+  openstacklib::openstack::database { $real_enabled_services:
     db_type => $db_type,
   }
-
-}
-
-define openstack_database(
-  $db_type = 'mysql',
-) {
-
-  include "::${name}::db::${db_type}"
-
 }

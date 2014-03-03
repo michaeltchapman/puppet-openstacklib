@@ -39,28 +39,28 @@ class openstacklib::puppet::master (
 # run
   Service['puppetdb'] -> Puppetdb_conn_validator['puppetdb_conn_http']
   puppetdb_conn_validator { 'puppetdb_conn_http':
-    ensure => present,
+    ensure          => present,
     puppetdb_server => $puppet_master_bind_address,
-    puppetdb_port => 8080,
-    use_ssl => false,
-    timeout => 240,
-    notify => Class['apache'],
+    puppetdb_port   => 8080,
+    use_ssl         => false,
+    timeout         => 240,
+    notify          => Class['apache'],
   }
 
 # install puppet master
   class { '::puppet::master':
-    certname => $::fqdn,
-    autosign => true,
-    modulepath => '/etc/puppet/modules:/usr/share/puppet/modules',
+    certname    => $::fqdn,
+    autosign    => true,
+    modulepath  => '/etc/puppet/modules:/usr/share/puppet/modules',
   }
 
 # install puppetdb and postgresql
   class { 'puppetdb':
-    listen_address => $puppet_master_bind_address,
-    ssl_listen_address => $puppet_master_bind_address,
-    database_password => 'datapass',
-    listen_port => 8080,
-    ssl_listen_port => 8081
+    listen_address      => $puppet_master_bind_address,
+    ssl_listen_address  => $puppet_master_bind_address,
+    database_password   => 'datapass',
+    listen_port         => 8080,
+    ssl_listen_port     => 8081
   }
 
   # I have no idea what this is but I get 403
@@ -68,27 +68,26 @@ class openstacklib::puppet::master (
   #https://groups.google.com/forum/#!msg/puppet-users/eQpr0-zd3dM/cx8NwigZpBAJ
   if ($::osfamily == 'RedHat') {
     file { '/etc/puppet/auth.conf':
-      owner => root,
-      group => root,
-      content => template('openstacklib/auth.conf.erb'),
-      require => File[$::puppet::params::confdir],
-      notify => Service[$::puppet::params::puppet_master_service],
+      owner     => root,
+      group     => root,
+      content   => template('openstacklib/auth.conf.erb'),
+      require   => File[$::puppet::params::confdir],
+      notify    => Service[$::puppet::params::puppet_master_service],
     }
     file { '/etc/puppet/fileserver.conf':
-      owner => root,
-      group => root,
-      content => template('openstacklib/fileserver.conf.erb'),
-      require => File[$::puppet::params::confdir],
-      notify => Service[$::puppet::params::puppet_master_service],
+      owner     => root,
+      group     => root,
+      content   => template('openstacklib/fileserver.conf.erb'),
+      require   => File[$::puppet::params::confdir],
+      notify    => Service[$::puppet::params::puppet_master_service],
     }
   }
 
-# Configure the puppet master to use puppetdb.
+  # Configure the puppet master to use puppetdb.
   class { 'puppetdb::master::config':
-    puppetdb_server => $puppet_master_bind_address,
-    puppetdb_port => 8081,
-    restart_puppet => false,
-# I only want to validate with http
-    strict_validation => false,
+    puppetdb_server     => $puppet_master_bind_address,
+    puppetdb_port       => 8081,
+    restart_puppet      => false,
+    strict_validation   => false,
   }
 }

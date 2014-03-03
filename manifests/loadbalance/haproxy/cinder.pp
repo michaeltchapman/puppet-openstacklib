@@ -58,26 +58,26 @@ class openstacklib::loadbalance::haproxy::cinder(
 )
 {
   openstacklib::loadbalance::haproxy_service { 'cinder':
-    vip              => $vip,
-    balancer_ports   => $ports,
-    listen_options   => $listen_options,
-    listen_mode      => $listen_mode,
-    balancer_options => $balancer_options,
-    balancer_cookie  => $balancer_cookie,
+    vip               => $vip,
+    balancer_ports    => $ports,
+    listen_options    => $listen_options,
+    listen_mode       => $listen_mode,
+    balancer_options  => $balancer_options,
+    balancer_cookie   => $balancer_cookie,
     cluster_addresses => $cluster_addresses,
-    cluster_names    => $cluster_names,
+    cluster_names     => $cluster_names,
   }
 
   if $internal_vip {
     openstacklib::loadbalance::haproxy_service { 'cinder-internal':
-      vip              => $internal_vip,
-      balancer_ports   => $ports,
-      listen_options   => $listen_options,
-      listen_mode      => $listen_mode,
-      balancer_options => $balancer_options,
-      balancer_cookie  => $balancer_cookie,
+      vip               => $internal_vip,
+      balancer_ports    => $ports,
+      listen_options    => $listen_options,
+      listen_mode       => $listen_mode,
+      balancer_options  => $balancer_options,
+      balancer_cookie   => $balancer_cookie,
       cluster_addresses => $cluster_addresses,
-      cluster_names    => $cluster_names,
+      cluster_names     => $cluster_names,
     }
   }
 }

@@ -59,15 +59,15 @@ class openstacklib::loadbalance::haproxy::heat(
   $balancer_options   = undef,
   $balancer_cookie    = undef,
 )
-{  
+{
   if $heat_port {
     openstacklib::loadbalance::haproxy_service { 'heat-api':
-      vip              => $vip,
-      balancer_ports   => [$heat_port],
-      listen_options   => $listen_options,
-      listen_mode      => $listen_mode,
-      balancer_options => $balancer_options,
-      balancer_cookie  => $balancer_cookie,
+      vip               => $vip,
+      balancer_ports    => [$heat_port],
+      listen_options    => $listen_options,
+      listen_mode       => $listen_mode,
+      balancer_options  => $balancer_options,
+      balancer_cookie   => $balancer_cookie,
       cluster_addresses => $cluster_addresses,
       cluster_names     => $cluster_names
     }
@@ -75,12 +75,12 @@ class openstacklib::loadbalance::haproxy::heat(
 
   if $cfn_port {
     openstacklib::loadbalance::haproxy_service { 'heat-cfn-internal':
-      vip              => $internal_vip,
-      balancer_ports   => [$cfn_port],
-      listen_options   => $listen_options,
-      listen_mode      => $listen_mode,
-      balancer_options => $balancer_options,
-      balancer_cookie  => $balancer_cookie,
+      vip               => $internal_vip,
+      balancer_ports    => [$cfn_port],
+      listen_options    => $listen_options,
+      listen_mode       => $listen_mode,
+      balancer_options  => $balancer_options,
+      balancer_cookie   => $balancer_cookie,
       cluster_addresses => $cluster_addresses,
       cluster_names     => $cluster_names
     }
@@ -89,12 +89,12 @@ class openstacklib::loadbalance::haproxy::heat(
   if $internal_vip {
     if $heat_port {
       openstacklib::loadbalance::haproxy_service { 'heat-api-internal':
-        vip              => $internal_vip,
-        balancer_ports   => [$heat_port],
-        listen_options   => $listen_options,
-        listen_mode      => $listen_mode,
-        balancer_options => $balancer_options,
-        balancer_cookie  => $balancer_cookie,
+        vip               => $internal_vip,
+        balancer_ports    => [$heat_port],
+        listen_options    => $listen_options,
+        listen_mode       => $listen_mode,
+        balancer_options  => $balancer_options,
+        balancer_cookie   => $balancer_cookie,
         cluster_addresses => $cluster_addresses,
         cluster_names     => $cluster_names
       }
@@ -102,12 +102,12 @@ class openstacklib::loadbalance::haproxy::heat(
 
     if $cfn_port {
       openstacklib::loadbalance::haproxy_service { 'heat-cfn':
-        vip              => $vip,
-        balancer_ports   => [$cfn_port],
-        listen_options   => $listen_options,
-        listen_mode      => $listen_mode,
-        balancer_options => $balancer_options,
-        balancer_cookie  => $balancer_cookie,
+        vip               => $vip,
+        balancer_ports    => [$cfn_port],
+        listen_options    => $listen_options,
+        listen_mode       => $listen_mode,
+        balancer_options  => $balancer_options,
+        balancer_cookie   => $balancer_cookie,
         cluster_addresses => $cluster_addresses,
         cluster_names     => $cluster_names
       }
