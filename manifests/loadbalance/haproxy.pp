@@ -1,3 +1,39 @@
+# == Class: openstacklib::loadbalance::haproxy
+#
+# Sets up haproxy as a loadbalancer on an internal
+# and a public interface, and create a virtual IP
+# using keepalived.
+#
+# [*cluster_public_vip*]
+#   (required) The virtual IP address for the public
+#   interface (string)
+#
+# [*cluster_private_vip*]
+#   (required) The virtual IP address for the internal
+#   interface (string)
+#
+# [*vip_secret*]
+#   (required) The secret required to connect to
+#   the virtual ip (string)
+#
+# [*public_iface*]
+#   (required) The interface to use for public traffic (string)
+#
+# [*private_iface*]
+#   (required) The interface to use for private traffic (string)
+#
+# [*cluster_master*]
+#   (required) The fqdn of the node that will be the master
+#   for the virtual IPs (string)
+#
+# [*cluster_names*]
+#   (required) The names of the control nodes in the loadbalancing
+#   cluster (list)
+#
+# [*cluster_addresses*]
+#   (required) The IP addresses of the control nodes in the
+#   loadbalancing cluster
+#
 class openstacklib::loadbalance::haproxy (
   $cluster_public_vip,
   $cluster_private_vip,
@@ -7,6 +43,7 @@ class openstacklib::loadbalance::haproxy (
   $cluster_master,
   $cluster_names,
   $cluster_addresses,
+) {
 
   $haproxy_defaults = {
       'log' => 'global',
@@ -22,7 +59,6 @@ class openstacklib::loadbalance::haproxy (
       'user'    => 'haproxy',
       'group'    => 'haproxy',
   },
-) {
 
   class { '::haproxy':
     global_options => $haproxy_globals,

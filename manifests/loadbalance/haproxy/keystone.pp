@@ -1,3 +1,54 @@
+# == Class: openstacklib::loadbalance::haproxy::keystone
+#
+# Provides load balancing for keystone
+#
+# === Parameters:
+#
+# [*vip*]
+#   (required) The virtual IP for public endpoints
+#
+# [*cluster_addresses*]
+#   (required) List of IPs in the control cluster
+#   on the interface that provides this service.
+#   For API endpoints this is generally the public
+#   address.
+#
+# [*cluster_names*]
+#   (required) List of names of control servers
+#
+# [*internal_vip*]
+#   (optional) The virtual IP for internal endpoints
+#   Defaults to undef
+#
+# [*public_port*]
+#   (optional) The port to load balance for public keystone api
+#   Defaults to '5000'
+#
+# [*admin_port*]
+#   (optional) The port to load balance for admin keystone api
+#   Defaults to '35357'
+#
+# [*listen_options*]
+#   (optional) Options to pass to the listen
+#   section of haproxy. See haproxy module for
+#   additional details.
+#   Defaults to { 'option' => ['httpchk'] }
+#
+# [*listen_mode*]
+#   (optional) The listen mode to be configured in
+#   haproxy for this service
+#   Defaults to 'http'
+#
+# [*balancer_options*]
+#   (optional) Options to pass to the balancer
+#   in haproxy. See haproxy module for more details.
+#   Defaults to undef
+#
+# [*balancer_cookie*]
+#   (optional) A cookie to set in the
+#   balancer member in haproxy.
+#   Defaults to true
+#
 class openstacklib::loadbalance::haproxy::keystone
 (
   $vip,
