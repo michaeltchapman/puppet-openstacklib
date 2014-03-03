@@ -8,4 +8,4 @@ PuppetLint.configuration.send('disable_80chars')
 PuppetLint.configuration.send('disable_class_parameter_defaults')
 PuppetLint.configuration.ignore_paths = ["vendor/**/*.pp", "spec/**/*.pp"]
 
-task :default => [:spec, :lint]
+task :default => [:spec_prep, :spec_standalone, :lint]

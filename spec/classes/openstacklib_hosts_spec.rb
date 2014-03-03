@@ -5,8 +5,8 @@ describe 'openstacklib::hosts' do
     {
       :build_server_ip   => '192.168.1.1',
       :cluster_hash      => { 
-        'control1' => '10.0.1.11',
-        'control2' => '10.0.1.12'
+        'control1.private' => '10.0.1.11',
+        'control2.private' => '10.0.1.12'
       },
       :domain            => 'domain.name',
       :mgmt_ip           => '192.168.1.11',
@@ -15,11 +15,54 @@ describe 'openstacklib::hosts' do
   end
 
   context 'on a compute node with two control nodes' do
-    #before { params.merge!() }
+    before { params.merge!({}) }
     let(:node) { 'compute1.domain.name' }
     let(:facts) {{ :hostname => 'compute1', :domain => 'domain.name' }}
 
+    it { should contain_file('/etc/hosts').with(
+      :ensure => 'present',
+      :owner  => 'root',
+      :group  => 'root'
+    ) }
+
     it { should contain_file('/etc/hosts').with_content(/192.168.1.11  compute1.domain.name compute1/ )}
+    it { should contain_file('/etc/hosts').with_content(/192.168.1.1   build-server.domain.name   build-server/ )}
+    it { should contain_file('/etc/hosts').with_content(/10.0.1.11 control1.private/ )}
+    it { should contain_file('/etc/hosts').with_content(/10.0.1.12 control2.private/ )}
   end
+
+  context 'on a control node with two control nodes' do
+    before { params.merge!({:mgmt_ip => '192.168.1.50'}) }
+    let(:node) { 'control1.domain.name' }
+    let(:facts) {{ :hostname => 'control1', :domain => 'domain.name' }}
+
+    it { should contain_file('/etc/hosts').with(
+      :ensure => 'present',
+      :owner  => 'root',
+      :group  => 'root'
+    ) }
+
+    it { should contain_file('/etc/hosts').with_content(/192.168.1.50  control1.domain.name control1/ )}
+    it { should contain_file('/etc/hosts').with_content(/192.168.1.1   build-server.domain.name   build-server/ )}
+    it { should contain_file('/etc/hosts').with_content(/10.0.1.11 control1.private/ )}
+    it { should contain_file('/etc/hosts').with_content(/10.0.1.12 control2.private/ )}
+  end
+
+  context 'on the build node with two control nodes' do
+    before { params.merge!({:mgmt_ip => '192.168.1.1'}) }
+    let(:node) { 'build-server.domain.name' }
+    let(:facts) {{ :hostname => 'build-server', :domain => 'domain.name' }}
+
+    it { should contain_file('/etc/hosts').with(
+      :ensure => 'present',
+      :owner  => 'root',
+      :group  => 'root'
+    ) }
+
+    it { should contain_file('/etc/hosts').with_content(/192.168.1.1  build-server.domain.name build-server/ )}
+    it { should contain_file('/etc/hosts').with_content(/10.0.1.11 control1.private/ )}
+    it { should contain_file('/etc/hosts').with_content(/10.0.1.12 control2.private/ )}
+  end
+
 end
 

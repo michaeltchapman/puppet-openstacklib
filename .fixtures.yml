@@ -9,7 +9,7 @@ fixtures:
     'apache'    : 'git://github.com/puppetlabs/puppetlabs-apache'
     'apt'       : 'git://github.com/puppetlabs/puppetlabs-apt'
     'stdlib'    : 'git://github.com/puppetlabs/puppetlabs-stdlib'
-    'inifile'    : 'git://github.com/puppetlabs/puppetlabs-inifile'
+    'inifile'   : 'git://github.com/puppetlabs/puppetlabs-inifile'
     'keepalived': 'git://github.com/arioch/puppet-keepalived'
   symlinks:
     'openstacklib' : "#{source_dir}"
