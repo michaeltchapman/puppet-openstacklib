@@ -1,17 +1,20 @@
+# == Class openstacklib::puppet::master
 #
-# this profile configures a machine
+# this class configures a machine
 # as a puppetmaster.
 #
 # [*puppetlabs_repo*]
-# (optional) Sets the apt/yum repository from which
-# puppet master will be installed to be puppetlabs
-# Default: true
-
+#   (optional) Sets the apt/yum repository from which
+#   puppet master will be installed to be puppetlabs
+#   Defaults to true
+#
+# [*puppet_master_address*]
+#   (optional) the fqdn of the puppet master
+#   Defaults to $::fqdn
+#
 class openstacklib::puppet::master (
   $puppetlabs_repo = true,
   $puppet_master_address = $::fqdn,
-  $domain = $::domain,
-  $puppet_subnet = "${::network_eth1}/24"
 ) {
 
   $puppet_master_bind_address = $puppet_master_address

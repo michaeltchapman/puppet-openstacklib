@@ -1,11 +1,19 @@
+# == Class: openstacklib::openstack::databases
 #
-# openstacklib::create_dbs
+# Given a list of services and db type, this class will include
+# the db class of the correct type from the service module
 #
-# ==Parameters
+# == Parameters:
 #
-# [enabled_services]
-# List of services that should have databases created.
-# Accepts elements: cinder,glance,keystone,nova, network, and all.
+# [*enabled_services*]
+#   (optional) List of services that should have databases created.
+#   Accepts elements: cinder,glance,keystone,nova, network, and all.
+#   Defaults to ['cinder', 'glance', 'keystone', 'nova', 'neutron']
+#
+# [*db_type*]
+#   (optional) The type of db to use.
+#   Valid options are 'mysql' and 'postgres'
+#   Defaults to 'mysql'
 #
 class openstacklib::openstack::databases(
   $enabled_services = [

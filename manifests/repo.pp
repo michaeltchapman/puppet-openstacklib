@@ -1,3 +1,31 @@
+# == Class: openstacklib::repo
+#
+# This repo sets up RDO and UCA repositories on
+# the approriate platforms. It currently supports
+# either Centos or Ubuntu.
+#
+# === Parameters:
+#
+# [*yum_http_proxy*]
+#   (optional) URL of an http proxy to use for all yum repos if set.
+#   Defaults to undef
+#
+# [*yum_base_mirror*]
+#   (optional) Mirror to use for CentOS base repositories
+#   Defaults to 'http://mirror.aarnet.edu.au'
+#
+# [*yum_epel_mirror*]
+#   (optional) Mirror to use for EPEL repositories
+#   Defaults to 'http://mirror.aarnet.edu.au'
+#
+# [*apt_proxy_host*]
+#   (optional) Address or hostname of apt proxy if set
+#   Defaults to undef
+#
+# [*apt_proxy_port*]
+#   (optional) Port to use for apt proxy if set
+#   Defaults to undef
+#
 class openstacklib::repo (
   $yum_http_proxy = undef,
   $yum_base_mirror = 'http://mirror.aarnet.edu.au',
