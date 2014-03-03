@@ -1,3 +1,23 @@
+# == Class: openstacklib::firewall::glance
+#
+# Sets firewall rules for glance
+#
+# [*source*]
+#   (required) Source CIDR to allow connections from
+#
+# [*internal_source*]
+#   (optional) If set, additional source CIDR to allow
+#   connections from. Use for internal endpoint.
+#   Defaults to undef
+#
+# [*glance_api*]
+#   (optional) The port to open for glance api
+#   Defaults to 9191
+#
+# [*glance_registry*]
+#   (optional) The port to open for glance registry
+#   Defaults to 9292
+#
 class openstacklib::firewall::glance(
   $source,
   $internal_source = undef,

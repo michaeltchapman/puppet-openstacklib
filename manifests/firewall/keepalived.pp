@@ -1,3 +1,7 @@
+# == Class: openstacklib::firewall::keepalived
+#
+# Sets firewall rules for keepalived (allow all vrrp)
+#
 class openstacklib::firewall::keepalived(
 ) {
 

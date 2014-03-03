@@ -1,3 +1,23 @@
+# == Class: openstacklib::firewall::keystone
+#
+# Sets firewall rules for keystone
+#
+# [*source*]
+#   (required) Source CIDR to allow connections from
+#
+# [*internal_source*]
+#   (optional) If set, additional source CIDR to allow
+#   connections from. Use for internal endpoint.
+#   Defaults to undef
+#
+# [*keystone_public*]
+#   (optional) The port to open for keystone public api
+#   Defaults to 5000
+#
+# [*keystone_admin*]
+#   (optional) The port to open for keystone admin api
+#   Defaults to 35357
+#
 class openstacklib::firewall::keystone(
   $source,
   $internal_source = undef,

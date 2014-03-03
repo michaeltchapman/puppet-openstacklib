@@ -1,3 +1,31 @@
+# == Class: openstacklib::firewall::nova
+#
+# Sets firewall rules for nova
+#
+# [*source*]
+#   (required) Source CIDR to allow connections from
+#
+# [*internal_source*]
+#   (optional) If set, additional source CIDR to allow
+#   connections from. Use for internal endpoint.
+#   Defaults to undef
+#
+# [*api_port*]
+#   (optional) The port to open for nova api
+#   Defaults to 8774
+#
+# [*ec2_port*]
+#   (optional) The port to open for ec2 api
+#   Defaults to 8773
+#
+# [*metadata_port*]
+#   (optional) The port to open for nova metadata
+#   Defaults to 8775
+#
+# [*novnc_port*]
+#   (optional) The port to open for novnc proxy
+#   Defaults to 6080
+#
 class openstacklib::firewall::nova(
   $source,
   $internal_source = undef,

@@ -1,3 +1,31 @@
+# == Class: openstacklib::firewall::edeploy
+#
+# Sets firewall rules for edeploy
+#
+# [*source*]
+#   (required) Source CIDR to allow connections from
+#
+# [*internal_source*]
+#   (optional) If set, additional source CIDR to allow
+#   connections from. Use for internal endpoint.
+#   Defaults to undef
+#
+# [*dhcp_port*]
+#   (optional) The port to open for dhcp
+#   Defaults to 53
+#
+# [*tftp_port*]
+#   (optional) The port to open for tftp
+#   Defaults to 69
+#
+# [*rsync_port*]
+#   (optional) The port to open for rsync
+#   Defaults to 873
+#
+# [*edeploy_port*]
+#   (optional) The port to open for edeploy http services
+#   Defaults to 80
+#
 class openstacklib::firewall::edeploy(
   $source,
   $dhcp_port    = 53,
