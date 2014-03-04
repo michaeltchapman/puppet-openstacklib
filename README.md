@@ -1,6 +1,8 @@
 puppet-openstacklib
 ================
 
+[![Build Status](https://travis-ci.org/michaeltchapman/puppet-openstacklib.png?branch=master)](https://travis-ci.org/michaeltchapman/puppet-openstacklib)
+
 puppet-openstack helper manifests
 
 This repo contains manifests needed to use the puppet_openstack_builder data model with the aptira scenario.
