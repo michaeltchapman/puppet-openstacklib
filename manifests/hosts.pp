@@ -32,7 +32,7 @@ class openstacklib::hosts (
   $build_server_ip,
   $cluster_hash,
   $domain,
-  $mgmt_ip = $::ipaddress_eth1,
+  $mgmt_ip           = $::ipaddress_eth1,
   $build_server_name = 'build-server',
 ) {
 
