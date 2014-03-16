@@ -20,7 +20,7 @@ class openstacklib::openstack::endpoints (
   # convention of the other services
   $real_enabled_services = delete($enabled_services, 'keystone')
 
-  openstack::openstacklib::keystone_endpoint { $real_enabled_services: }
+  openstacklib::openstack::keystone_endpoint { $real_enabled_services: }
 
   include ::keystone::endpoint
   include ::keystone::roles::admin
