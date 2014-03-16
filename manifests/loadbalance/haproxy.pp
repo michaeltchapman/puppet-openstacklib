@@ -41,8 +41,8 @@ class openstacklib::loadbalance::haproxy (
   $public_iface,
   $private_iface,
   $cluster_master,
-  $cluster_names,
-  $cluster_addresses,
+  #$cluster_names,
+  #$cluster_addresses,
 ) {
 
   $haproxy_defaults = {
@@ -51,14 +51,14 @@ class openstacklib::loadbalance::haproxy (
     'option'    => ['httplog', 'dontlognull', 'redispatch'],
     'retries'   => '3',
     'timeout'   => ['connect 5000', 'client 10000', 'server 10000']
-  },
+  }
 
   $haproxy_globals = {
     'log'       => '127.0.0.1 local0 notice',
     'maxconn'   => '2000',
     'user'      => 'haproxy',
     'group'     => 'haproxy',
-  },
+  }
 
   class { '::haproxy':
     global_options   => $haproxy_globals,
@@ -74,7 +74,7 @@ class openstacklib::loadbalance::haproxy (
   # configure vips
   include keepalived
 
-  sysctl::value { 'net.ipv4.ip_nonlocal_bind':
+  sysctl { 'net.ipv4.ip_nonlocal_bind':
     value  => '1',
     before => Class['::keepalived']
   }
@@ -86,7 +86,7 @@ class openstacklib::loadbalance::haproxy (
     priority            => '101',
     auth_type           => 'PASS',
     auth_pass           => $vip_secret,
-    virtual_ipaddress   => $cluster_public_vip,
+    virtual_ipaddress   => [$cluster_public_vip],
   } -> Class['::haproxy']
 
   keepalived::vrrp::instance { 'private':
@@ -96,7 +96,7 @@ class openstacklib::loadbalance::haproxy (
     priority            => '101',
     auth_type           => 'PASS',
     auth_pass           => $vip_secret,
-    virtual_ipaddress   => $cluster_private_vip,
+    virtual_ipaddress   => [$cluster_private_vip],
   } -> Class['::haproxy']
 
   # Openstack services depend on being able to access db and mq, so make
