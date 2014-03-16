@@ -71,15 +71,15 @@ class openstacklib::repo (
 
       yumrepo {
         'CentOS-Base':
-          descr          => 'CentOS-\$releasever - Base',
+          descr          => 'CentOS-$releasever - Base',
           mirrorlist     => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os',
           baseurl        => "${yum_base_mirror}/pub/centos/\$releasever/os/\$basearch/";
         'CentOS-Updates':
-          descr          => 'CentOS-\$releasever - Updates',
+          descr          => 'CentOS-$releasever - Updates',
           mirrorlist     => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates',
           baseurl        => "${yum_base_mirror}/pub/centos/\$releasever/updates/\$basearch/";
         'CentOS-Extras':
-          descr          => 'CentOS-\$releasever - Extras',
+          descr          => 'CentOS-$releasever - Extras',
           mirrorlist     => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras',
           baseurl        => "${yum_base_mirror}/pub/centos/\$releasever/extras/\$basearch/";
       }
