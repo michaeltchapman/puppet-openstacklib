@@ -25,7 +25,7 @@ describe 'openstacklib::hosts' do
       :group  => 'root'
     ) }
 
-    it { should contain_file('/etc/hosts').with_content(/192.168.1.11  compute1.domain.name compute1/ )}
+    it { should contain_file('/etc/hosts').with_content(/192.168.1.11 compute1.domain.name compute1/ )}
     it { should contain_file('/etc/hosts').with_content(/192.168.1.1   build-server.domain.name   build-server/ )}
     it { should contain_file('/etc/hosts').with_content(/10.0.1.11 control1.private/ )}
     it { should contain_file('/etc/hosts').with_content(/10.0.1.12 control2.private/ )}
@@ -42,7 +42,7 @@ describe 'openstacklib::hosts' do
       :group  => 'root'
     ) }
 
-    it { should contain_file('/etc/hosts').with_content(/192.168.1.50  control1.domain.name control1/ )}
+    it { should contain_file('/etc/hosts').with_content(/192.168.1.50 control1.domain.name control1/ )}
     it { should contain_file('/etc/hosts').with_content(/192.168.1.1   build-server.domain.name   build-server/ )}
     it { should contain_file('/etc/hosts').with_content(/10.0.1.11 control1.private/ )}
     it { should contain_file('/etc/hosts').with_content(/10.0.1.12 control2.private/ )}
@@ -59,7 +59,7 @@ describe 'openstacklib::hosts' do
       :group  => 'root'
     ) }
 
-    it { should contain_file('/etc/hosts').with_content(/192.168.1.1  build-server.domain.name build-server/ )}
+    it { should contain_file('/etc/hosts').with_content(/192.168.1.1 build-server.domain.name build-server/ )}
     it { should contain_file('/etc/hosts').with_content(/10.0.1.11 control1.private/ )}
     it { should contain_file('/etc/hosts').with_content(/10.0.1.12 control2.private/ )}
   end
