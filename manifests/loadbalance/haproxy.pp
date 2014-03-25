@@ -41,8 +41,6 @@ class openstacklib::loadbalance::haproxy (
   $public_iface,
   $private_iface,
   $cluster_master,
-  #$cluster_names,
-  #$cluster_addresses,
 ) {
 
   $haproxy_defaults = {
