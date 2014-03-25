@@ -15,6 +15,8 @@ describe 'openstacklib::compat' do
   end
 
   context 'when installing havana using master branch' do
-    it { should contain_keystone_config('DEFAULT/bind_host').with_value('192.168.1.1')}
+    it { should contain_keystone_config('DEFAULT/public_bind_host').with(
+      :name  => 'DEFAULT/bind_host',
+      :value => '192.168.1.1')}
   end
 end

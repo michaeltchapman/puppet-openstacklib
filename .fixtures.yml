@@ -1,6 +1,7 @@
 fixtures:
   repositories:
     'keystone'  : 'git://github.com/stackforge/puppet-keystone'
+    'nova'      : 'git://github.com/stackforge/puppet-nova'
     'openstack' : 'git://github.com/stackforge/puppet-openstack'
     'firewall'  : 'git://github.com/puppetlabs/puppetlabs-firewall'
     'haproxy'   : 'git://github.com/puppetlabs/puppetlabs-haproxy'
