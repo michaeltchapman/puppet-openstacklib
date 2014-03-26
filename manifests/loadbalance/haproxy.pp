@@ -99,9 +99,11 @@ class openstacklib::loadbalance::haproxy (
 
   # Openstack services depend on being able to access db and mq, so make
   # sure our VIPs and LB are active before we deal with them.
-  Haproxy::Listen<||> -> Class['::mysql::server']
-  Haproxy::Listen<||> -> Class['::rabbitmq']
-  Haproxy::Balancermember<||> -> Class['::mysql::server']
-  Haproxy::Balancermember<||> -> Class['::rabbitmq']
+  Haproxy::Listen<||> -> Anchor <| title == 'mysql::server::start' |>
+  Haproxy::Listen<||> -> Anchor <| title == 'rabbitmq::begin' |>
+  Haproxy::Balancermember<||> -> Anchor <| title == 'mysql::server::start' |>
+  Haproxy::Balancermember<||> -> Anchor <| title == 'rabbitmq::begin' |>
+  Service<| title == 'haproxy' |> -> Anchor <| title == 'rabbitmq::begin' |>
+  Service<| title == 'haproxy' |> -> Anchor <| title == 'mysql::server::start' |>
 
 }
