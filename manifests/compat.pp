@@ -19,13 +19,13 @@ class openstacklib::compat(
       # Bind hosts were separated out to public/admin in icehouse
       Keystone_config <| title == 'DEFAULT/public_bind_host' |>  {
         name => 'DEFAULT/bind_host',
-        value => $keystone::public_bind_host
+        value => hiera('keystone::public_bind_host')
       }
 
       # libvirt has its own section as of icehouse
       Nova_config <| title == 'libvirt/virt_type' |> {
         name => 'DEFAULT/libvirt_type',
-        value => $nova::compute::libvirt::libvirt_virt_type
+        value => hiera('nova::compute::libvirt::libvirt_virt_type')
       }
     }
 
