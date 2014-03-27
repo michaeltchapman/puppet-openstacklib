@@ -121,8 +121,8 @@ define openstacklib::openstack::region_auth(
         public_protocol   => $public_protocol,
         internal_protocol => $internal_protocol,
         admin_protocol    => $admin_protocol,
-        public_suffix     => '',
-        admin_suffix      => '',
+        public_suffix     => '/v2.0',
+        admin_suffix      => '/v2.0',
         public_port       => '5000',
         admin_port        => '35357'
       }
