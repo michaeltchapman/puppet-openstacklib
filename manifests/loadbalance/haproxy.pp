@@ -34,6 +34,14 @@
 #   (required) The IP addresses of the control nodes in the
 #   loadbalancing cluster
 #
+# [*public_vrid*]
+#   (optional) The virtual router ID for the public VIP
+#   Defaults to '50'
+#
+# [*private_vrid*]
+#   (optional) The virtual router ID for the private VIP
+#   Defaults to '51'
+#
 class openstacklib::loadbalance::haproxy (
   $cluster_public_vip,
   $cluster_private_vip,
@@ -41,6 +49,8 @@ class openstacklib::loadbalance::haproxy (
   $public_iface,
   $private_iface,
   $cluster_master,
+  $public_vrid = '50',
+  $private_vrid = '51',
 ) {
 
   $haproxy_defaults = {
@@ -78,9 +88,9 @@ class openstacklib::loadbalance::haproxy (
   }
 
   keepalived::vrrp::instance { 'public':
-    interface           =>  $public_iface,
-    state               =>  $state,
-    virtual_router_id   => '50',
+    interface           => $public_iface,
+    state               => $state,
+    virtual_router_id   => $public_vrid,
     priority            => '101',
     auth_type           => 'PASS',
     auth_pass           => $vip_secret,
@@ -88,9 +98,9 @@ class openstacklib::loadbalance::haproxy (
   } -> Class['::haproxy']
 
   keepalived::vrrp::instance { 'private':
-    interface           =>  $private_iface,
-    state               =>  $state,
-    virtual_router_id   => '51',
+    interface           => $private_iface,
+    state               => $state,
+    virtual_router_id   => $private_vrid,
     priority            => '101',
     auth_type           => 'PASS',
     auth_pass           => $vip_secret,
