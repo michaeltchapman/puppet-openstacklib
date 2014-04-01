@@ -30,7 +30,7 @@ class openstacklib::compat(
     }
 
     default: {
-      notice { 'Nothing to do for compat class': }
+      notify { 'Nothing to do for compat class': }
     }
   }
 }
