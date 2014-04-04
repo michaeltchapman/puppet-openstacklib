@@ -5,9 +5,9 @@
 # packstack (github.com/stackforge/packstack)
 #
 class openstacklib::openstack::netns() {
-  if $::netns_support != "true" {
-     package { ['kernel', 'iputils', 'iproute']:
-       ensure => 'latest'
-     }
+  if $::netns_support != 'true' {
+    package { ['kernel', 'iputils', 'iproute']:
+      ensure => 'latest'
+    }
   }
 }
