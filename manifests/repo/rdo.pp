@@ -10,6 +10,9 @@ class openstacklib::repo::rdo(
     case $::operatingsystem {
       centos, redhat, scientific, slc: { $dist = 'epel' }
       fedora: { $dist = 'fedora' }
+      default: {
+        warning('Unrecognised operatingsystem')
+      }
     }
     # $lsbmajdistrelease is only available with redhat-lsb installed
     $osver = regsubst($::operatingsystemrelease, '(\d+)\..*', '\1')
