@@ -29,17 +29,19 @@
 #   Defaults to 'build-server'
 #
 class openstacklib::hosts (
-  $build_server_ip,
-  $cluster_hash,
-  $domain,
+  $build_server_ip   = false,
+  $cluster_hash      = false,
+  $domain            = false,
   $mgmt_ip           = $::ipaddress_eth1,
   $build_server_name = 'build-server',
 ) {
 
-  file { '/etc/hosts':
-    ensure  => present,
-    owner   => root,
-    group   => root,
-    content => template('openstacklib/hosts.erb'),
-  } -> Package<||>
+  if $build_server_ip and $cluster_hash and $domain {
+    file { '/etc/hosts':
+      ensure  => present,
+      owner   => root,
+      group   => root,
+      content => template('openstacklib/hosts.erb'),
+    } -> Package<||>
+  }
 }
