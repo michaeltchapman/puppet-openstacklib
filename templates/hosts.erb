@@ -14,8 +14,8 @@
 <% end -%>
 
 # Control nodes private interfaces for rabbit clustering
-<% @cluster_hash.each do |node, ip| -%>
+<% @cluster_hash.each do |node, details| -%>
 <% if @hostname != node -%>
-<%= ip %> <%= node %>
+<%= details['ip'] %> <%= node %>
 <% end -%>
 <% end -%>

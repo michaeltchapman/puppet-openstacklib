@@ -5,12 +5,17 @@ describe 'openstacklib::hosts' do
     {
       :build_server_ip   => '192.168.1.1',
       :cluster_hash      => { 
-        'control1.private' => '10.0.1.11',
-        'control2.private' => '10.0.1.12'
+        'control1.private' => {
+          'ip'  => '10.0.1.11',
+        },
+        'control2.private' => {
+          'ip'  => '10.0.1.12',
+        }
       },
       :domain            => 'domain.name',
       :mgmt_ip           => '192.168.1.11',
-      :build_server_name => 'build-server'
+      :build_server_name => 'build-server',
+      :strict_ordering   => 'true'
     }
   end
 
@@ -62,6 +67,13 @@ describe 'openstacklib::hosts' do
     it { should contain_file('/etc/hosts').with_content(/192.168.1.1 build-server.domain.name build-server/ )}
     it { should contain_file('/etc/hosts').with_content(/10.0.1.11 control1.private/ )}
     it { should contain_file('/etc/hosts').with_content(/10.0.1.12 control2.private/ )}
+  end
+
+  context 'on the a node with nonstrict ordering' do
+    before { params.merge!({:strict_ordering => false}) }
+
+    it { should contain_host('control1.private').with(:ip => '10.0.1.11')}
+    it { should contain_host('control2.private').with(:ip => '10.0.1.12')}
   end
 
 end

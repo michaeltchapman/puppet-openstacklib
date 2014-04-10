@@ -34,14 +34,20 @@ class openstacklib::hosts (
   $domain            = false,
   $mgmt_ip           = $::ipaddress_eth1,
   $build_server_name = 'build-server',
+  $strict_ordering   = false
 ) {
 
-  if $build_server_ip and $cluster_hash and $domain {
+  if $build_server_ip and $cluster_hash and $domain and $strict_ordering {
     file { '/etc/hosts':
       ensure  => present,
       owner   => root,
       group   => root,
       content => template('openstacklib/hosts.erb'),
     } -> Package<||>
+  }
+
+  if ($cluster_hash and ! $strict_ordering) {
+    $hostnames = keys($cluster_hash)
+    create_resources('host', $cluster_hash)
   }
 }
