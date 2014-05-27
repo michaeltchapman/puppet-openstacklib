@@ -1,4 +1,4 @@
-# == Class: openstacklib::compat
+# == Class: openstacklib::compat::nova
 #
 # This class is used to massage compatibility between versions,
 # so that the puppet modules can remain on master and move from
@@ -10,17 +10,11 @@
 #   (optional) The version of openstack to be installed
 #   Defaults to 'havana'
 #
-class openstacklib::compat(
+class openstacklib::compat::nova(
   $openstack_release = 'havana',
 ) {
   case $openstack_release {
     'havana': {
-
-      # Bind hosts were separated out to public/admin in icehouse
-      Keystone_config <| title == 'DEFAULT/public_bind_host' |>  {
-        name => 'DEFAULT/bind_host',
-        value => hiera('keystone::public_bind_host')
-      }
 
       # libvirt has its own section as of icehouse
       Nova_config <| title == 'libvirt/virt_type' |> {
