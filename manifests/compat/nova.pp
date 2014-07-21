@@ -24,7 +24,7 @@ class openstacklib::compat::nova(
     }
 
     default: {
-      notify { 'Nothing to do for compat class': }
+      debug('Nothing to do for compat class')
     }
   }
 }

@@ -47,7 +47,7 @@ class openstacklib::repo (
 
       if $yum_epel_mirror {
         Yumrepo<| title == 'epel' |> {
-          baseurl => "${yum_epel_mirror}/pub/epel/\$releasever/\$basearch",
+          baseurl => "${yum_epel_mirror}/\$releasever/\$basearch",
           mirrorlist => absent
         }
       }
@@ -72,13 +72,13 @@ class openstacklib::repo (
       yumrepo {
         'CentOS-Base':
           descr          => 'CentOS-$releasever - Base',
-          baseurl        => "${yum_base_mirror}/pub/centos/\$releasever/os/\$basearch/";
+          baseurl        => "${yum_base_mirror}/\$releasever/os/\$basearch/";
         'CentOS-Updates':
           descr          => 'CentOS-$releasever - Updates',
-          baseurl        => "${yum_base_mirror}/pub/centos/\$releasever/updates/\$basearch/";
+          baseurl        => "${yum_base_mirror}/\$releasever/updates/\$basearch/";
         'CentOS-Extras':
           descr          => 'CentOS-$releasever - Extras',
-          baseurl        => "${yum_base_mirror}/pub/centos/\$releasever/extras/\$basearch/";
+          baseurl        => "${yum_base_mirror}/\$releasever/extras/\$basearch/";
       }
   }
 }

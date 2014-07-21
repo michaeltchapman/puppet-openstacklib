@@ -33,7 +33,7 @@ class openstacklib::compat::keystone(
     }
 
     default: {
-      notify { 'Nothing to do for compat class': }
+      debug('Nothing to do for compat class')
     }
   }
 }
