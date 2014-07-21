@@ -10,8 +10,8 @@ class openstacklib::firewall::compute(
 )
 {
   firewall { '518 nova_compute_guest accept any':
-    proto  => 'all',
-    action => accept,
+    proto   => 'all',
+    action  => accept,
     iniface => $interface
   }
 }
