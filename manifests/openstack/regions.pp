@@ -91,13 +91,22 @@ class openstacklib::openstack::regions(
   $tenant               = 'services'
 ) {
 
+  if 'shared' in regions_hash {
+    $shared_services = $regions_hash['shared']
+  } else {
+    $shared_services = {
+            'public_ip'  => '',
+            'private_ip' => '',
+            'services'   => [] }
+  }
+
   $defaults = {
     'admin_email'        => $admin_email,
     'tenant'             => $tenant,
     'public_protocol'    => $public_protocol,
     'internal_protocol'  => $internal_protocol,
     'admin_protocol'     => $admin_protocol,
-    'shared'             => $regions_hash['shared'],
+    'shared'             => $shared_services,
     'keystone_user_pw'   => $keystone_user_pw,
     'nova_user_pw'       => $nova_user_pw,
     'neutron_user_pw'    => $neutron_user_pw,

@@ -77,7 +77,10 @@ define openstacklib::openstack::region_auth(
   $private_ip,
   $services,
   $admin_email,
-  $shared,
+  $shared             = {
+            'public_ip'  => '',
+            'private_ip' => '',
+            'services'   => []},
   $tenant             = 'services',
   $public_protocol    = 'http',
   $internal_protocol  = 'http',
