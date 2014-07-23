@@ -42,6 +42,12 @@
 #   (optional) The virtual router ID for the private VIP
 #   Defaults to '51'
 #
+# [*package_override*]
+#   (optional) A url of an rpm to use to install the HAProxy
+#   package. This can be used to install haproxy 1.5.2 which
+#   is not currently in any official repos.
+#   Defaults to undef
+#
 class openstacklib::loadbalance::haproxy (
   $cluster_public_vip,
   $cluster_private_vip,
@@ -51,6 +57,7 @@ class openstacklib::loadbalance::haproxy (
   $cluster_master,
   $public_vrid = '50',
   $private_vrid = '51',
+  $package_override = undef,
 ) {
 
   $haproxy_defaults = {
@@ -116,4 +123,10 @@ class openstacklib::loadbalance::haproxy (
   Service<| title == 'haproxy' |> -> Anchor <| title == 'rabbitmq::begin' |>
   Service<| title == 'haproxy' |> -> Anchor <| title == 'mysql::server::start' |>
 
+  if $package_override {
+    Package<| title == 'haproxy' |> {
+      provider => 'rpm',
+      source   => $package_override
+    }
+  }
 }
