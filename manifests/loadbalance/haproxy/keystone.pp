@@ -49,6 +49,11 @@
 #   balancer member in haproxy.
 #   Defaults to true
 #
+# [*bind_options*]
+#   (optional) Array of options to add to the bind line in
+#   listen section
+#   Defaults to undef
+#
 class openstacklib::loadbalance::haproxy::keystone
 (
   $vip,
@@ -63,6 +68,7 @@ class openstacklib::loadbalance::haproxy::keystone
   $listen_mode        = 'http',
   $balancer_options   = undef,
   $balancer_cookie    = true,
+  $bind_options       = undef,
 )
 {
   openstacklib::loadbalance::haproxy_service { 'keystone-public':
@@ -73,7 +79,8 @@ class openstacklib::loadbalance::haproxy::keystone
     balancer_options  => $balancer_options,
     balancer_cookie   => $balancer_cookie,
     cluster_addresses => $cluster_addresses,
-    cluster_names     => $cluster_names
+    cluster_names     => $cluster_names,
+    bind_options      => $bind_options
   }
 
   if $internal_vip {
@@ -85,7 +92,8 @@ class openstacklib::loadbalance::haproxy::keystone
       balancer_options  => $balancer_options,
       balancer_cookie   => $balancer_cookie,
       cluster_addresses => $cluster_addresses,
-      cluster_names     => $cluster_names
+      cluster_names     => $cluster_names,
+      bind_options      => $bind_options
     }
 
     openstacklib::loadbalance::haproxy_service { 'keystone-admin-internal':
@@ -96,7 +104,8 @@ class openstacklib::loadbalance::haproxy::keystone
       balancer_options  => $balancer_options,
       balancer_cookie   => $balancer_cookie,
       cluster_addresses => $cluster_addresses,
-      cluster_names     => $cluster_names
+      cluster_names     => $cluster_names,
+      bind_options      => $bind_options
     }
   } else {
     notice('Keystone admin api is being placed on public vip.')
@@ -108,7 +117,8 @@ class openstacklib::loadbalance::haproxy::keystone
       balancer_options  => $balancer_options,
       balancer_cookie   => $balancer_cookie,
       cluster_addresses => $cluster_addresses,
-      cluster_names     => $cluster_names
+      cluster_names     => $cluster_names,
+      bind_options      => $bind_options
     }
   }
 }
