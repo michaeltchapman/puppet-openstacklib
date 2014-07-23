@@ -45,6 +45,11 @@
 #   balancer member in haproxy.
 #   Defaults to undef
 #
+# [*bind_options*]
+#   (optional) Array of options to add to the bind line in
+#   listen section
+#   Defaults to undef
+#
 class openstacklib::loadbalance::haproxy::dashboard(
   $vip,
   $cluster_addresses,
@@ -54,6 +59,7 @@ class openstacklib::loadbalance::haproxy::dashboard(
   $listen_mode        = 'http',
   $balancer_options   = undef,
   $balancer_cookie    = undef,
+  $bind_options       = undef,
 )
 {
   openstacklib::loadbalance::haproxy_service { 'dashboard':
@@ -64,6 +70,7 @@ class openstacklib::loadbalance::haproxy::dashboard(
     balancer_options  => $balancer_options,
     balancer_cookie   => $balancer_cookie,
     cluster_addresses => $cluster_addresses,
-    cluster_names     => $cluster_names
+    cluster_names     => $cluster_names,
+    bind_options      => $bind_options
   }
 }

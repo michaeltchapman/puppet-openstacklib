@@ -14,6 +14,7 @@ define openstacklib::loadbalance::haproxy_service (
   $listen_mode      = 'http',
   $balancer_options = 'check inter 10s',
   $balancer_cookie  = undef,
+  $bind_options     = undef,
 ) {
 
   haproxy::listen { $name:
@@ -22,6 +23,7 @@ define openstacklib::loadbalance::haproxy_service (
     mode             => $listen_mode,
     collect_exported => false,
     options          => $listen_options,
+    bind_options     => $bind_options
   }
 
   haproxy::balancermember { $name:
