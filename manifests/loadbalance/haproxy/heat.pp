@@ -52,6 +52,11 @@
 #   listen section
 #   Defaults to undef
 #
+# [*int_bind_options*]
+#   (optional) Array of options to add to the bind line in
+#   listen section for internal comms
+#   Defaults to undef
+#
 class openstacklib::loadbalance::haproxy::heat(
   $vip,
   $cluster_addresses,
@@ -64,6 +69,7 @@ class openstacklib::loadbalance::haproxy::heat(
   $balancer_options   = undef,
   $balancer_cookie    = undef,
   $bind_options       = undef,
+  $int_bind_options   = undef,
 )
 {
   if $heat_port {
@@ -105,7 +111,7 @@ class openstacklib::loadbalance::haproxy::heat(
         balancer_cookie   => $balancer_cookie,
         cluster_addresses => $cluster_addresses,
         cluster_names     => $cluster_names,
-        bind_options      => $bind_options
+        bind_options      => $int_bind_options
       }
     }
 
@@ -119,7 +125,7 @@ class openstacklib::loadbalance::haproxy::heat(
         balancer_cookie   => $balancer_cookie,
         cluster_addresses => $cluster_addresses,
         cluster_names     => $cluster_names,
-        bind_options      => $bind_options
+        bind_options      => $int_bind_options
       }
     }
   }
