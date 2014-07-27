@@ -43,7 +43,7 @@ instance_name='<%= @image_type %>_test_vm'
 <% if @neutron -%>
 
 neutron net-create public --router:external=True
-neutron subnet-create --name public --allocation-pool start=172.16.2.128,end=172.16.2.150 public 172.16.2.0/24
+neutron subnet-create --name public --dns-nameserver 8.8.8.8 --allocation-pool start=172.16.2.128,end=172.16.2.150 public 172.16.2.0/24
 
 neutron net-create net1
 neutron subnet-create --name net1 net1 10.0.0.0/24
@@ -103,6 +103,6 @@ neutron security-group-rule-create --protocol icmp --direction ingress test_sec_
 neutron security-group-rule-create --protocol tcp --port-range-min 22 \
   --port-range-max 22 --direction ingress test_sec_group
 sleep <%= @sleep_time %>
-ssh $login_user@$floating_ip -i /tmp/id_rsa -o StrictHostKeyChecking=no hostname
+ssh $login_user@$floating_ip -i /tmp/id_rsa -o StrictHostKeyChecking=no ping -c 1 www.google.com
 <% end %>
 exit 0
