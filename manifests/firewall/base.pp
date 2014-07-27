@@ -49,6 +49,5 @@ class openstacklib::firewall::base(
   firewall { '999 base-drop reject all':
     proto   => 'all',
     action  => 'drop',
-    before  => undef
   }
 }
