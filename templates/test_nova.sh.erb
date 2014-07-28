@@ -46,7 +46,7 @@ neutron net-create public --router:external=True
 neutron subnet-create --name public --dns-nameserver 8.8.8.8 --allocation-pool start=172.16.2.128,end=172.16.2.150 public 172.16.2.0/24
 
 neutron net-create net1
-neutron subnet-create --name net1 net1 10.0.0.0/24
+neutron subnet-create --name net1 --dns-nameserver 8.8.8.8 net1 10.0.0.0/24
 
 neutron_net=`neutron net-list | grep net1 | awk -F' ' '{print $2}'`
 neutron_public_net=`neutron net-list | grep public | awk -F' ' '{print $2}'`
