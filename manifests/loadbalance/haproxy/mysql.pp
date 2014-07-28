@@ -94,6 +94,12 @@ class openstacklib::loadbalance::haproxy::mysql
       define_cookies    => $balancer_cookie
     }
 
+    if ! $balancer_options {
+      $int_b_opts = 'backup'
+    } else {
+      $int_b_opts = join(['backup', $balancer_options], ' ')
+    }
+
     $int_addresses = delete($cluster_addresses, $master_address)
     $int_names     = delete($cluster_names, $master_name)
     openstacklib::loadbalance::haproxy_service { 'mysql':
@@ -101,7 +107,7 @@ class openstacklib::loadbalance::haproxy::mysql
       balancer_ports    => $ports,
       listen_options    => $listen_options,
       listen_mode       => $listen_mode,
-      balancer_options  => join(['backup', $balancer_options], ' '),
+      balancer_options  => $int_b_opts,
       balancer_cookie   => $balancer_cookie,
       cluster_addresses => $int_addresses,
       cluster_names     => $int_names
