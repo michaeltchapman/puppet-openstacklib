@@ -1,6 +1,6 @@
 # == Class: openstacklib::loadbalance::haproxy::mysql
 #
-# Provides load balancing for mysql
+# Provides load balancing for mysql.
 #
 # === Parameters:
 #
@@ -50,6 +50,16 @@
 #   balancer member in haproxy.
 #   Defaults to undef
 #
+# [*master_name*]
+#   (optional) If using master/slave,
+#   the name of the master
+#   Defaults to undef
+#
+# [*master_address*]
+#   (optional) If using master/slave,
+#   the address of the master
+#   Defaults to undef
+#
 class openstacklib::loadbalance::haproxy::mysql
 (
   $vip,
@@ -70,16 +80,42 @@ class openstacklib::loadbalance::haproxy::mysql
   $listen_mode        = 'tcp',
   $balancer_options   = undef,
   $balancer_cookie    = undef,
+  $master_address     = undef,
+  $master_name        = undef,
 )
 {
-  openstacklib::loadbalance::haproxy_service { 'mysql':
-    vip               => $vip,
-    balancer_ports    => $ports,
-    listen_options    => $listen_options,
-    listen_mode       => $listen_mode,
-    balancer_options  => $balancer_options,
-    balancer_cookie   => $balancer_cookie,
-    cluster_addresses => $cluster_addresses,
-    cluster_names     => $cluster_names
+  if $master_address {
+    haproxy::balancermember { 'mysql-master':
+      listening_service => 'mysql',
+      ports             => ['3306'],
+      server_names      => [$master_name],
+      ipaddresses       => [$master_address],
+      options           => $balancer_options,
+      define_cookies    => $balancer_cookie
+    }
+
+    $int_addresses = delete($cluster_addresses, $master_address)
+    $int_names     = delete($cluster_names, $master_name)
+    openstacklib::loadbalance::haproxy_service { 'mysql':
+      vip               => $vip,
+      balancer_ports    => $ports,
+      listen_options    => $listen_options,
+      listen_mode       => $listen_mode,
+      balancer_options  => join(['backup', $balancer_options], ' '),
+      balancer_cookie   => $balancer_cookie,
+      cluster_addresses => $int_addresses,
+      cluster_names     => $int_names
+    }
+  } else {
+    openstacklib::loadbalance::haproxy_service { 'mysql':
+      vip               => $vip,
+      balancer_ports    => $ports,
+      listen_options    => $listen_options,
+      listen_mode       => $listen_mode,
+      balancer_options  => $balancer_options,
+      balancer_cookie   => $balancer_cookie,
+      cluster_addresses => $cluster_addresses,
+      cluster_names     => $cluster_names
+    }
   }
 }

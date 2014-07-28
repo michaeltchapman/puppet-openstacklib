@@ -1,4 +1,3 @@
-+
 # == Class: openstacklib::firewall::dhcp
 #
 # Sets firewall rules that are needed for dhcp
