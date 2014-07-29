@@ -55,7 +55,7 @@ class openstacklib::firewall::nova(
   }
   firewall { '513 nova_novnc accept tcp':
     proto  => 'tcp',
-    port   => [$ec2_port],
+    port   => [$novnc_port],
     action => accept,
     source => $source
   }
@@ -81,7 +81,7 @@ class openstacklib::firewall::nova(
     }
     firewall { '513 nova_novnc-internal accept tcp':
       proto  => 'tcp',
-      port   => [$ec2_port],
+      port   => [$novnc_port],
       action => accept,
       source => $internal_source
     }
