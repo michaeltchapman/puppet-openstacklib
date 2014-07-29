@@ -50,4 +50,7 @@ class openstacklib::firewall::base(
     proto   => 'all',
     action  => 'drop',
   }
+
+  # Handle drop rule last
+  Firewall<| title == '999 base-drop reject all' |> -> Firewall<| title != '999 base-drop reject all' |>
 }
