@@ -83,7 +83,7 @@ class openstacklib::loadbalance::haproxy::ceilometer(
 
   if $internal_vip {
     openstacklib::loadbalance::haproxy_service { 'ceilometer-internal':
-      vip               => $vip,
+      vip               => $internal_vip,
       balancer_ports    => $ports,
       listen_options    => $listen_options,
       listen_mode       => $listen_mode,
