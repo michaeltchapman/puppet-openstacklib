@@ -94,6 +94,12 @@ class openstacklib::loadbalance::haproxy (
     before => Class['::keepalived']
   }
 
+  # Since vswitch now moves ip addresses of interfaces to
+  # their attached ovs bridge, that bridge needs to be the
+  # public interface, and must be ready before keepalived starts
+  Vs_port<||> -> Class['::keepalived']
+  Vs_bridge<||> -> Class['::keepalived']
+
   keepalived::vrrp::instance { 'public':
     interface           => $public_iface,
     state               => $state,
