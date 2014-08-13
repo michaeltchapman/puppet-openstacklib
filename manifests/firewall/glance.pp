@@ -21,8 +21,8 @@
 class openstacklib::firewall::glance(
   $source,
   $internal_source = undef,
-  $glance_api      = 9191,
-  $glance_registry = 9292,
+  $glance_api      = 9292,
+  $glance_registry = 9191,
 )
 {
   firewall { '530 glance-registry accept tcp':
